@@ -1,9 +1,9 @@
 FROM node:22-alpine AS web-builder
 WORKDIR /build
-COPY package.json ./
+COPY package.json package-lock.json ./
 COPY apps/web-client/package.json ./apps/web-client/package.json
 RUN npm config set registry https://registry.npmmirror.com
-RUN npm install
+RUN npm ci --no-audit --no-fund
 COPY apps/web-client ./apps/web-client
 RUN npm run build:web
 
